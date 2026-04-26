@@ -1,3 +1,7 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.app-dark, .app-dark *));
+
 :root {
   color-scheme: light;
 
@@ -75,6 +79,7 @@ select {
 button {
   border: 0;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 a {
@@ -161,4 +166,351 @@ a {
 .app-dark .starter-copy,
 .app-dark .starter-eyebrow {
   color: var(--dark-muted);
+}
+
+.editor-canvas {
+  outline: none;
+  caret-color: var(--article-accent);
+  overflow-anchor: none;
+  overflow-x: hidden;
+}
+
+.editor-canvas h1,
+.editor-canvas h2,
+.editor-canvas h3,
+.editor-canvas p,
+.editor-canvas blockquote,
+.editor-canvas li,
+.editor-canvas pre,
+.editor-canvas code {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.editor-canvas h1,
+.editor-canvas h2,
+.editor-canvas h3,
+.editor-canvas p,
+.editor-canvas div,
+.editor-canvas blockquote,
+.editor-canvas li {
+  white-space: normal !important;
+}
+
+.editor-canvas h1 *,
+.editor-canvas h2 *,
+.editor-canvas h3 *,
+.editor-canvas p *,
+.editor-canvas div *,
+.editor-canvas blockquote *,
+.editor-canvas li * {
+  max-width: 100% !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+.editor-canvas h1 {
+  margin: 0 0 64px;
+  padding-bottom: 34px;
+  border-bottom: 1px solid color-mix(in srgb, var(--article-accent) 18%, transparent);
+  color: var(--article-heading);
+  font-size: 52px;
+  font-weight: 950;
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+.editor-canvas h2 {
+  margin: 44px 0 18px;
+  color: var(--article-heading);
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1.28;
+  letter-spacing: 0;
+}
+
+.editor-canvas h3 {
+  margin: 34px 0 14px;
+  color: var(--article-heading);
+  font-size: 24px;
+  font-weight: 850;
+  line-height: 1.36;
+  letter-spacing: 0;
+}
+
+.editor-canvas p,
+.editor-canvas div {
+  min-height: 1.8em;
+  margin: 18px 0;
+  color: var(--article-text);
+  font-size: 18px;
+  line-height: 2;
+}
+
+.editor-canvas blockquote {
+  margin: 28px 0;
+  position: relative;
+  overflow: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+  border-radius: 18px;
+  background: var(--article-soft);
+  color: var(--article-text);
+  padding: 24px 32px;
+  font-size: 19px;
+  line-height: 2;
+}
+
+.editor-canvas blockquote::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  inset-block: 0;
+  width: 2px;
+  border-radius: 999px;
+  background: var(--article-accent);
+}
+
+.editor-canvas ul,
+.editor-canvas ol {
+  list-style-position: outside !important;
+  margin: 24px 0;
+  padding-left: 1.5rem !important;
+  color: var(--article-text);
+  font-size: 18px;
+  line-height: 2 !important;
+}
+
+.editor-canvas ul {
+  list-style-type: disc !important;
+}
+
+.editor-canvas ol {
+  list-style-type: decimal !important;
+}
+
+.editor-canvas li {
+  display: list-item !important;
+  line-height: 2 !important;
+  padding-left: 0.2em;
+}
+
+.editor-canvas hr {
+  height: 1px;
+  margin: 36px 0;
+  border: 0;
+  background: color-mix(in srgb, var(--article-accent) 22%, transparent);
+}
+
+.editor-canvas mark {
+  padding: 0 5px;
+  border-radius: 5px;
+  background: #fde68a;
+  color: inherit;
+}
+
+.editor-canvas strong,
+.editor-canvas b {
+  font-weight: 950;
+  line-height: inherit;
+  color: var(--article-heading);
+}
+
+.editor-canvas img {
+  display: block;
+  max-width: 100%;
+  margin: 28px 0;
+  border-radius: 14px;
+}
+
+.editor-canvas pre {
+  position: relative;
+  overflow: hidden;
+  margin: 30px 0;
+  padding: 72px 32px 32px 78px;
+  max-width: 100%;
+  box-sizing: border-box;
+  border: 1px solid color-mix(in srgb, var(--article-accent) 20%, rgba(148, 163, 184, 0.34));
+  border-radius: 12px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--article-accent) 8%, transparent) 0 46px, transparent 46px),
+    color-mix(in srgb, var(--article-soft) 82%, #ffffff);
+  color: color-mix(in srgb, var(--article-text) 88%, #0f172a);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 15px;
+  line-height: 2;
+  white-space: pre-wrap;
+  tab-size: 2;
+  box-shadow:
+    inset 46px 0 0 color-mix(in srgb, var(--article-accent) 7%, transparent),
+    0 18px 46px rgba(15, 23, 42, 0.08);
+}
+
+.editor-canvas pre code {
+  display: block;
+  max-width: 100%;
+  white-space: inherit;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.editor-canvas pre::before {
+  content: "代码块";
+  position: absolute;
+  top: 21px;
+  left: 32px;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: color-mix(in srgb, var(--article-heading) 62%, transparent);
+  font-family:
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "PingFang SC",
+    "Microsoft YaHei",
+    "Segoe UI",
+    sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.editor-canvas pre::after {
+  content: "1";
+  position: absolute;
+  top: 72px;
+  left: 30px;
+  color: color-mix(in srgb, var(--article-text) 46%, transparent);
+  font-size: 15px;
+  line-height: 2;
+}
+
+.app-dark .editor-canvas pre,
+.editor-canvas[style*="--article-bg: #111827"] pre,
+.editor-canvas[style*="--article-bg: #171717"] pre,
+.editor-canvas[style*="--article-bg: #061017"] pre {
+  border-color: color-mix(in srgb, var(--article-accent) 28%, rgba(255, 255, 255, 0.14));
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 0 46px, transparent 46px),
+    color-mix(in srgb, var(--article-soft) 62%, #0b0d10);
+  color: color-mix(in srgb, var(--article-text) 88%, #ffffff);
+  box-shadow:
+    inset 46px 0 0 rgba(255, 255, 255, 0.035),
+    0 20px 54px rgba(0, 0, 0, 0.22);
+}
+
+.app-dark .editor-canvas pre::before,
+.editor-canvas[style*="--article-bg: #111827"] pre::before,
+.editor-canvas[style*="--article-bg: #171717"] pre::before,
+.editor-canvas[style*="--article-bg: #061017"] pre::before {
+  color: color-mix(in srgb, var(--article-heading) 66%, transparent);
+}
+
+.app-dark .editor-canvas pre::after,
+.editor-canvas[style*="--article-bg: #111827"] pre::after,
+.editor-canvas[style*="--article-bg: #171717"] pre::after,
+.editor-canvas[style*="--article-bg: #061017"] pre::after {
+  color: color-mix(in srgb, var(--article-text) 42%, transparent);
+}
+
+.ai-breathing-button {
+  animation: ai-breathe 1.35s ease-in-out infinite;
+}
+
+.ai-status-fade {
+  animation: ai-status-fade 180ms ease-out both;
+}
+
+.right-panel {
+  scrollbar-width: none;
+}
+
+.right-panel::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes ai-breathe {
+  0%,
+  100% {
+    box-shadow: 0 18px 42px rgba(184, 77, 87, 0.34);
+    transform: translateY(0);
+  }
+
+  50% {
+    box-shadow: 0 22px 54px rgba(184, 77, 87, 0.58);
+    transform: translateY(-1px);
+  }
+}
+
+@media (max-height: 860px) {
+  .right-panel {
+    top: 82px;
+    max-height: calc(100vh - 92px);
+  }
+
+  .right-panel-copy {
+    height: 48px;
+    border-radius: 16px;
+  }
+
+  .right-panel-card {
+    padding: 20px;
+  }
+
+  .right-panel-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 14px;
+  }
+
+  .right-panel-title {
+    font-size: 19px;
+  }
+
+  .right-panel-tabs {
+    margin-top: 20px;
+    height: 40px;
+    border-radius: 16px;
+  }
+
+  .right-panel-desc {
+    min-height: 42px;
+    margin-top: 16px;
+    line-height: 1.65;
+  }
+
+  .right-panel-status {
+    margin-top: 14px;
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .right-panel-main-button {
+    height: 50px;
+    margin-top: 16px;
+    border-radius: 16px;
+  }
+
+  .right-panel-restore-button {
+    height: 46px;
+    border-radius: 15px;
+  }
+}
+
+@keyframes ai-status-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

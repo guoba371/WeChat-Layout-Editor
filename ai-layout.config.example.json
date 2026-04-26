@@ -1,0 +1,8 @@
+{
+  "provider": "TiMi CC",
+  "baseUrl": "https://timicc.com",
+  "model": "gpt-5.5",
+  "apiKeyEnv": "VITE_AI_API_KEY",
+  "temperature": 0.25,
+  "notes": "Copy .env.example to .env and fill VITE_AI_API_KEY. Do not commit real keys."
+}
