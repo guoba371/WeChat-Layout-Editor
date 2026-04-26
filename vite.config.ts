@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => {
   if (!apiBasePath.endsWith('/v1')) apiBasePath = `${apiBasePath}/v1`;
 
   return {
+    base: mode === 'production' ? '/WeChat-Layout-Editor/' : '/',
     plugins: [react(), tailwindcss()],
     server: {
       proxy: {
