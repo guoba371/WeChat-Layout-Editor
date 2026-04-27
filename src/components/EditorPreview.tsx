@@ -7,10 +7,11 @@ type EditorPreviewProps = {
   themeVariables: CSSProperties;
   onSaveSelection: () => void;
   onEditorInput: () => void;
+  onImageSelected: (file: File) => void;
 };
 
 const initialHtml = `
-  <h1>👉 SaiWechatEdit：把时间留给灵感</h1>
+  <h1>SaiWechatEdit：把时间留给灵感</h1>
   <p>把公众号文章粘贴到这里，选中文本后使用顶部工具栏调整标题、加粗、高亮和代码样式。</p>
   <blockquote>
     主题系统已接入。点击左侧主题后，这里会通过 CSS 变量更新文章背景、文字、标题和强调色。
@@ -24,6 +25,7 @@ function EditorPreview({
   themeVariables,
   onSaveSelection,
   onEditorInput,
+  onImageSelected,
 }: EditorPreviewProps) {
   const seededRef = useRef(false);
 
@@ -54,7 +56,7 @@ function EditorPreview({
         onChange={(event) => {
           const file = event.target.files?.[0];
           if (!file) return;
-          window.alert(`已选择图片：${file.name}`);
+          onImageSelected(file);
           event.target.value = '';
         }}
       />

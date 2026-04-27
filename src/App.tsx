@@ -176,6 +176,27 @@ const themes: ThemeDefinition[] = [
   },
 ];
 
+function readImageAsDataUrl(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      if (typeof reader.result === 'string') {
+        resolve(reader.result);
+        return;
+      }
+
+      reject(new Error('图片读取失败，请换一张图片重试'));
+    };
+    reader.onerror = () => reject(new Error('图片读取失败，请换一张图片重试'));
+    reader.readAsDataURL(file);
+  });
+}
+
+function getImageAltText(file: File) {
+  return file.name.replace(/\.[^.]+$/, '').trim() || '插入图片';
+}
+
 function App() {
   const [isDark, setIsDark] = useState(false);
   const [activeTheme, setActiveTheme] = useState<ThemeDefinition>(themes[0]);
@@ -393,6 +414,37 @@ function App() {
     normalizeEditorContent();
   }
 
+  async function insertImageFile(file: File) {
+    const editor = editorRef.current;
+    if (!editor) return;
+
+    const image = document.createElement('img');
+    image.src = await readImageAsDataUrl(file);
+    image.alt = getImageAltText(file);
+    image.loading = 'lazy';
+
+    const paragraph = document.createElement('p');
+    paragraph.innerHTML = '<br>';
+
+    if (focusEditorWithSelection()) {
+      const selection = window.getSelection();
+      const range = selection && selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+
+      if (range && rangeBelongsToEditor(range)) {
+        range.deleteContents();
+        range.insertNode(paragraph);
+        range.insertNode(image);
+        placeCaretAtEnd(paragraph);
+        normalizeEditorContent();
+        return;
+      }
+    }
+
+    editor.append(image, paragraph);
+    placeCaretAtEnd(paragraph);
+    normalizeEditorContent();
+  }
+
   function normalizeEditorContent() {
     const editor = editorRef.current;
     if (!editor) return;
@@ -459,6 +511,7 @@ function App() {
     }
 
     if (command === 'image') {
+      saveEditorSelection();
       fileInputRef.current?.click();
     }
   }
@@ -477,7 +530,7 @@ function App() {
         onEditorCommand={runEditorCommand}
       />
 
-      <section className="mx-auto mt-4 grid max-w-[1160px] grid-cols-[170px_minmax(560px,768px)_290px] items-start gap-8 pb-20">
+      <section className="mx-auto grid w-full max-w-[1180px] grid-cols-1 items-start gap-4 px-4 py-4 pb-20 sm:px-5 lg:mt-4 lg:grid-cols-[170px_minmax(0,768px)_290px] lg:gap-8 lg:px-0 lg:py-0">
         <ThemePanel themes={themes} activeTheme={activeTheme} onSelectTheme={setActiveTheme} />
 
         <EditorPreview
@@ -486,6 +539,7 @@ function App() {
           themeVariables={activeTheme.variables}
           onSaveSelection={saveEditorSelection}
           onEditorInput={handleEditorInput}
+          onImageSelected={insertImageFile}
         />
 
         <RightPanel editorRef={editorRef} />

@@ -196,7 +196,7 @@ function RightPanel({ editorRef }: RightPanelProps) {
   const statusTitle = isLoading ? message : message;
 
   return (
-    <aside className="right-panel sticky top-[90px] max-h-[calc(100vh-104px)] space-y-4 overflow-y-auto pr-1">
+    <aside className="right-panel space-y-4 lg:sticky lg:top-[90px] lg:max-h-[calc(100vh-104px)] lg:overflow-y-auto lg:pr-1">
       <button
         type="button"
         onClick={copyLayoutResult}
@@ -250,7 +250,7 @@ function RightPanel({ editorRef }: RightPanelProps) {
         </div>
 
         <p className="right-panel-desc mt-6 min-h-[56px] text-[13px] font-medium leading-7 text-slate-500 dark:text-white/42">
-          ✨ {isLoading ? 'AI 正在理解内容，并逐段写回编辑器。' : modeCopy[mode]}
+          {isLoading ? 'AI 正在理解内容，并逐段写回编辑器。' : modeCopy[mode]}
         </p>
 
         <div
